@@ -4,7 +4,7 @@ class GuestsController < ApplicationController
   # GET /guests
   def index
     @guests = Guest.all
-    render json: @guests
+    render json: @guests.to_json(include: :rsvp)
   end
 
   # GET /guests/1
@@ -36,6 +36,16 @@ class GuestsController < ApplicationController
   # DELETE /guests/1
   def destroy
     @guest.destroy
+  end
+
+  def attending
+    @guests = Guest.where('attending': true)
+    render json: @guests.to_json(include: :rsvp)
+  end
+
+  def notAttending
+    @guests = Guest.where('attending': false)
+    render json: @guests.to_json(include: :rsvp)
   end
 
   private
