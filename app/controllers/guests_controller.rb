@@ -4,7 +4,6 @@ class GuestsController < ApplicationController
   # GET /guests
   def index
     @guests = Guest.all
-
     render json: @guests
   end
 
@@ -16,9 +15,10 @@ class GuestsController < ApplicationController
   # POST /guests
   def create
     @guest = Guest.new(guest_params)
+    @guest.rsvp_id = params[:rsvp_id]
 
     if @guest.save
-      render json: @guest, status: :created, location: @guest
+      render json: @guest, status: :created
     else
       render json: @guest.errors, status: :unprocessable_entity
     end

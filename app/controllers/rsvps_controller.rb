@@ -4,13 +4,12 @@ class RsvpsController < ApplicationController
   # GET /rsvps
   def index
     @rsvps = Rsvp.all
-
-    render json: @rsvps
+    render json: @rsvps.to_json(include: :guests)
   end
 
   # GET /rsvps/1
   def show
-    render json: @rsvp
+    render json: @rsvp.to_json(include: :guests)
   end
 
   # POST /rsvps
@@ -18,7 +17,7 @@ class RsvpsController < ApplicationController
     @rsvp = Rsvp.new(rsvp_params)
 
     if @rsvp.save
-      render json: @rsvp, status: :created, location: @rsvp
+      render json: @rsvp, status: :created
     else
       render json: @rsvp.errors, status: :unprocessable_entity
     end
@@ -46,6 +45,6 @@ class RsvpsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def rsvp_params
-      params.require(:rsvp).permit(:email, :plus_one, :plus_one_entree, :comment)
+      params.require(:rsvp).permit(:email)
     end
 end
