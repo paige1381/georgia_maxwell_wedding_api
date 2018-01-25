@@ -7,6 +7,7 @@ class EmailValidator < ActiveModel::EachValidator
 end
 
 class Rsvp < ApplicationRecord
+  belongs_to :user
   has_many :guests
   validates :email, presence: true, email: true, uniqueness: { case_sensitive: false, message: "An RSVP has already been submitted under this email" }
 end
