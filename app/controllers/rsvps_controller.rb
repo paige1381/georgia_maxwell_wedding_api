@@ -9,7 +9,7 @@ class RsvpsController < ApplicationController
 
   # GET /rsvps/1
   def show
-    render json: @rsvp.to_json(include: [:guests, :user)
+    render json: @rsvp.to_json(include: [:guests, :user])
   end
 
   # POST /rsvps
@@ -45,6 +45,6 @@ class RsvpsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def rsvp_params
-      params.require(:rsvp).permit(:email)
+      params.require(:rsvp).permit(:email, :user_id)
     end
 end
