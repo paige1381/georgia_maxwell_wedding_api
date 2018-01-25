@@ -9,4 +9,10 @@ Rails.application.routes.draw do
   resources :rsvps do
     resources :guests, only: [:create]
   end
+
+  resources :users do
+    collection do
+      post '/login', to: 'users#login'
+    end
+  end
 end
