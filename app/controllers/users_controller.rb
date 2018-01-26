@@ -12,7 +12,7 @@ class UsersController < ApplicationController
 
   # GET /users/1
   def show
-    render json: get_current_user
+    render json: get_current_user.to_json(include: :rsvps)
   end
 
   # POST /users
@@ -42,12 +42,11 @@ class UsersController < ApplicationController
 
   def login
     user = User.find_by(username: params[:user][:username])
-    puts user.id
     if user && user.authenticate(params[:user][:password])
       token = create_token(user.id, user.username)
       render json: { status: 200, token: token, user: user }
     else
-      render json: { status: 401, message: "Unauthorized" }
+      render json: user.errors, status: :unauthorized
     end
   end
 
