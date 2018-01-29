@@ -67,6 +67,9 @@ class UsersController < ApplicationController
       p 'payload function'
       p id
       p username
+      p (Time.now + 30.minutes).to_i
+      p Time.now.to_i
+      p ENV['JWT_ISSUER']
       {
         exp: (Time.now + 30.minutes).to_i,
         iat: Time.now.to_i,
