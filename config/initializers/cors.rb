@@ -7,7 +7,7 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins 'localhost:3001', 'https://paige1381.github.io/georgia-maxwell-wedding/public/index.html'
+    origins 'localhost:3001', 'https://paige1381.github.io'
 
     resource '*',
       headers: :any,
