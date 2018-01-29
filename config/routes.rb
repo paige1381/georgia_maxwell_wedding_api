@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  root 'welcome#index'
   resources :guests, only: [:index, :show, :update, :destroy, :attending, :notAttending] do
     collection do
       get 'attending', to: 'guests#attending'
