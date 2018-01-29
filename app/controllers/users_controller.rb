@@ -46,6 +46,7 @@ class UsersController < ApplicationController
     p user
     if user && user.authenticate(params[:user][:password])
       token = create_token(user.id, user.username)
+      p token
       render json: { status: 200, token: token, user: user }
     else
       render json: user.errors, status: :unauthorized
