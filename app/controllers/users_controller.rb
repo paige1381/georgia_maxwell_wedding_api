@@ -41,14 +41,9 @@ class UsersController < ApplicationController
   end
 
   def login
-    p 'starting login'
     user = User.find_by(username: params[:user][:username])
-    p user
     if user && user.authenticate(params[:user][:password])
-      p user.id
-      p user.username
       token = create_token(user.id, user.username)
-      p token
       render json: { status: 200, token: token, user: user }
     else
       render json: user.errors, status: :unauthorized
@@ -57,19 +52,10 @@ class UsersController < ApplicationController
 
   private
     def create_token(id, username)
-      p 'create_token function'
-      p id
-      p username
       JWT.encode(payload(id, username), ENV['JWT_SECRET'], 'HS256')
     end
 
     def payload(id, username)
-      p 'payload function'
-      p id
-      p username
-      p (Time.now + 30.minutes).to_i
-      p Time.now.to_i
-      p ENV['JWT_ISSUER']
       {
         exp: (Time.now + 30.minutes).to_i,
         iat: Time.now.to_i,
