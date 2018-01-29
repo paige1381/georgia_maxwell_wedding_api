@@ -3,4 +3,3 @@ class AddUserIdColumnToRsvp < ActiveRecord::Migration[5.2]
     add_column :rsvps, :user_id, :integer
   end
 end
-rails 
